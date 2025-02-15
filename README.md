@@ -1,5 +1,4 @@
 # VBA
-Trabalhos feitos em VBA
 Clinica de atendimento com consultas marcadas.
 
 1- Horario de funcionamento:  07:00 as 20:30
