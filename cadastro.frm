@@ -14,18 +14,47 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Private Sub continuar_Click()
 
-    Dim i As Integer, planilha As Worksheet, j As Integer
-    Dim dados As Variant
+Private Sub cmd_esp_Change()
+
+End Sub
+
+Sub continuar_Click()
+
+    Dim i As Integer, planilha As Worksheet, j As Integer, gi As Worksheet, ort As Worksheet, ot As Worksheet, der As Worksheet
+    Dim dados As Variant, o As Integer, t As Integer, d As Integer, g As Integer
     Dim duplicado As Boolean
-
+    Set planilha = ThisWorkbook.Sheets("Cadastro")
+    Set gi = ThisWorkbook.Sheets("Ginecologia")
+    Set ort = ThisWorkbook.Sheets("Otorrinolaringologia")
+    Set ot = ThisWorkbook.Sheets("Ortopedia")
+    Set der = ThisWorkbook.Sheets("Dermatologia")
     ' Identificar a próxima linha vazia usando Do While
+    g = 2 ' Começar na linha 2
+    Do While gi.Cells(g, "A").Value <> Empty
+        g = g + 1
+    Loop
+    
+    o = 2 ' Começar na linha 2
+    Do While ort.Cells(o, "A").Value <> Empty
+         o = o + 1
+    Loop
+    
+    t = 2 ' Começar na linha 2
+    Do While ot.Cells(t, "A").Value <> Empty
+        t = t + 1
+    Loop
+    
+    d = 2 ' Começar na linha 2
+    Do While der.Cells(d, "A").Value <> Empty
+        d = d + 1
+    Loop
+    
     i = 2 ' Começar na linha 2
-    Do While Cells(i, "A").Value <> Empty
+    Do While planilha.Cells(i, "A").Value <> Empty
         i = i + 1
     Loop
-
+    
     ' Verificar se o nome foi preenchido e se é válido
     If nometext.Value = "" Or TemNumero(nometext.Value) Then
         MsgBox "Digite um nome válido!", vbCritical, "ATENÇÃO"
@@ -63,7 +92,7 @@ Private Sub continuar_Click()
     End If
 
     ' Carregar os dados da planilha em uma matriz
-    Set planilha = ThisWorkbook.Sheets("Cadastro")
+   
     dados = planilha.Range("A2:E" & planilha.Cells(planilha.Rows.Count, "A").End(xlUp).Row).Value
 
     ' Verificar duplicidade
@@ -84,12 +113,41 @@ Private Sub continuar_Click()
         Exit Sub
     End If
 
-    ' Inserir os dados no formulário
-    Cells(i, "A").Value = nometext.Value
-    Cells(i, "B").Value = cmd_esp.Value
-    Cells(i, "C").Value = text_data.Value
-    Cells(i, "D").Value = text_hora.Value
-    Cells(i, "E").Value = cdg_paciente.Value
+    ' Inserir os dados do formulário
+    planilha.Cells(i, "A").Value = nometext.Value
+    planilha.Cells(i, "B").Value = cmd_esp.Value
+    planilha.Cells(i, "C").Value = text_data.Value
+    planilha.Cells(i, "D").Value = text_hora.Value
+    planilha.Cells(i, "E").Value = cdg_paciente.Value
+    
+    
+    Select Case cmd_esp.Value
+    Case "Ginecologia"
+        gi.Cells(g, "A") = planilha.Cells(i, "A")
+        gi.Cells(g, "B") = planilha.Cells(i, "C")
+        gi.Cells(g, "C") = planilha.Cells(i, "D")
+        gi.Cells(g, "D") = planilha.Cells(i, "E")
+        
+    Case "Ortopedia"
+        ort.Cells(o, "A") = planilha.Cells(i, "A")
+        ort.Cells(o, "B") = planilha.Cells(i, "C")
+        ort.Cells(o, "C") = planilha.Cells(i, "D")
+        ort.Cells(o, "D") = planilha.Cells(i, "E")
+        
+    Case "Otorrinolaringologia"
+        ot.Cells(t, "A") = planilha.Cells(i, "A")
+        ot.Cells(t, "B") = planilha.Cells(i, "C")
+        ot.Cells(t, "C") = planilha.Cells(i, "D")
+        ot.Cells(t, "D") = planilha.Cells(i, "E")
+
+    Case "Dermatologia"
+        der.Cells(d, "A") = planilha.Cells(i, "A")
+        der.Cells(d, "B") = planilha.Cells(i, "C")
+        der.Cells(d, "C") = planilha.Cells(i, "D")
+        der.Cells(d, "D") = planilha.Cells(i, "E")
+
+    End Select
+        
 
     MsgBox "Cadastro realizado com sucesso!", vbCritical
 
@@ -123,6 +181,10 @@ Sub LimparClick_Click() 'limpa o userform
     cmd_esp.Value = ""
     text_data.Value = ""
     text_hora.Value = ""
+
+End Sub
+
+Private Sub nometext_Change()
 
 End Sub
 

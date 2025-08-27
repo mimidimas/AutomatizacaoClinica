@@ -14,7 +14,7 @@ Sub especialidadem()
         Select Case Cells(i, "B").Value ' para fazer a verificação conforme a coluna B
         Case "Ortopedia" ' se estiver escrito Ortopedia
             ort = ort + 1
-        Case "Ginencologia" ' se estiver escrito Ginencologia
+        Case "Ginecologia" ' se estiver escrito Ginecologia
            g = g + 1
         Case "Otorrinolaringologia" ' se estiver escrito Otorrinolaringologia
             ot = ot + 1
@@ -26,7 +26,7 @@ Sub especialidadem()
         i = i + 1 ' add +1 no contador
     Loop ' temina o loop
     If g > ort And g > ot And g > d Then
-        MsgBox "Ginencologia é a especialidade mais procurada"
+        MsgBox "Ginecologia é a especialidade mais procurada"
     ElseIf ort > g And ort > ot And ort > d Then
         MsgBox "Ortopedia é a especialidade mais procurada"
     ElseIf ot > g And ot > ort And ot > d Then
